@@ -15,6 +15,7 @@ namespace RxTests
         
 
         public Subject<int> numSubject = new Subject<int>();
+        public Subject<string> oddSubject = new Subject<string>();
 
         private int _number;
         public int number
@@ -24,6 +25,14 @@ namespace RxTests
             {
                 _number = value;
                 numSubject.OnNext(number);
+                if(value%2 == 0)
+                {
+                    oddSubject.OnNext("EVEN");
+                }
+                else
+                {
+                    oddSubject.OnNext("ODD");
+                }
             }
         }
 
@@ -52,7 +61,7 @@ namespace RxTests
 
         public IDisposable Subscribe(IObserver<string> observer)
         {
-            return Disposable.Empty;
+            return oddSubject.Subscribe(observer);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace RxTests
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private IDisposable _sub;
+
         public RxTestModel model { get; set; }
 
         private string title;
@@ -23,6 +25,21 @@ namespace RxTests
             {
                 title = value;
                 OnPropertyChanged("Title");
+            }
+
+        }
+
+        private string isOddString;
+        public string IsOddString
+        {
+            get
+            {
+                return isOddString;
+            }
+            set
+            {
+                isOddString = value;
+                OnPropertyChanged("IsOddString");
             }
 
         }
@@ -46,6 +63,11 @@ namespace RxTests
                 Number = num;   
             });
             model.numSubject.Subscribe(updateAction);
+
+            _sub = model.Subscribe((oddString) =>
+            {
+                IsOddString = oddString;
+            });
             
         }
 

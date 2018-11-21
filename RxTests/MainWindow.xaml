@@ -10,6 +10,7 @@
         <StackPanel>
             <Label Content="{Binding Title}"></Label>
             <Label Content="{Binding Number}"></Label>
+            <Label Content="{Binding IsOddString}"></Label>
         </StackPanel>
     </Grid>
 </Window>
