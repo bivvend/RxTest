@@ -11,6 +11,15 @@
             <Label Content="{Binding Title}"></Label>
             <Label Content="{Binding Number}"></Label>
             <Label Content="{Binding IsOddString}"></Label>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding factorTenCommand}">Factor 10</Button>
+                <Label Content="{Binding FactorTen}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Throttled Number </Label>
+                <Label Content="{Binding ThrottledNum}"></Label>
+            </StackPanel>
+            
         </StackPanel>
     </Grid>
 </Window>

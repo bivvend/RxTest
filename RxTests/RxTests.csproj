@@ -70,6 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MVVMCommand.cs" />
     <Compile Include="RxTestModel.cs" />
     <Compile Include="RxTestsViewModel.cs" />
     <Page Include="MainWindow.xaml">

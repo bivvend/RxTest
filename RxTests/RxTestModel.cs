@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Reactive;
 using System.Reactive.Subjects;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 
 namespace RxTests
 {
@@ -17,6 +18,8 @@ namespace RxTests
         public Subject<int> numSubject = new Subject<int>();
         public Subject<string> oddSubject = new Subject<string>();
 
+        public BehaviorSubject<int> numBSubject = new BehaviorSubject<int>(0);
+
         private int _number;
         public int number
         {
@@ -25,6 +28,7 @@ namespace RxTests
             {
                 _number = value;
                 numSubject.OnNext(number);
+                numBSubject.OnNext(number);
                 if(value%2 == 0)
                 {
                     oddSubject.OnNext("EVEN");
@@ -52,6 +56,8 @@ namespace RxTests
             counter.Interval = 500;
             counter.Elapsed += Counter_Elapsed;
             counter.Start();
+
+            
         }
 
         private void Counter_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
