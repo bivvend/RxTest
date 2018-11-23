@@ -100,7 +100,7 @@ namespace RxTests
                 IsOddString = oddString;
             });
 
-            _sub2 = model.numBSubject.Sample(TimeSpan.FromSeconds(10)).Subscribe((throt) =>
+            _sub2 = model.numBSubject.Sample(TimeSpan.FromSeconds(3)).Subscribe((throt) =>
             {
                 ThrottledNum = throt;
             });
