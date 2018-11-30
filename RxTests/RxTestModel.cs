@@ -7,6 +7,8 @@ using System.Reactive;
 using System.Reactive.Subjects;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Threading;
+using System.Timers;
 
 namespace RxTests
 {
@@ -20,8 +22,13 @@ namespace RxTests
 
         public BehaviorSubject<int> numBSubject = new BehaviorSubject<int>(0);
 
+        public IObservable<EventPattern<ElapsedEventArgs>> times3Obs;
+
+        public IObservable<int> times5Obs;        
+
+
         private int _number;
-        public int number
+        public int number 
         {
             get => _number;
             set
@@ -57,14 +64,17 @@ namespace RxTests
             counter.Elapsed += Counter_Elapsed;
             counter.Start();
 
-            
+            times3Obs = Observable.FromEventPattern<ElapsedEventHandler, ElapsedEventArgs>(h => counter.Elapsed += h, h => counter.Elapsed -= h);
+
+            times5Obs = Observable.FromEventPattern<ElapsedEventHandler, ElapsedEventArgs>(h => counter.Elapsed += h, h => counter.Elapsed -= h).Select(h => number);
+
         }
 
-        private void Counter_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void Counter_Elapsed(object sender, ElapsedEventArgs e)
         {
             number++;
         }
-
+        
         public IDisposable Subscribe(IObserver<string> observer)
         {
             return oddSubject.Subscribe(observer);

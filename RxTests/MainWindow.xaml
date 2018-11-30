@@ -17,9 +17,19 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label>Throttled Number </Label>
-                <Label Content="{Binding ThrottledNum}"></Label>
+                <Label Content="{Binding ThrottledNum}"></Label>                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Multiples of 3</Label>
+                <Label Content="{Binding MultipleOfThree}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Multiples of 5</Label>
+                <Label Content="{Binding MultipleOfFive}"></Label>
             </StackPanel>
             
+
+
         </StackPanel>
     </Grid>
 </Window>

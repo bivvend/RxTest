@@ -17,6 +17,11 @@ namespace RxTests
 
         private IDisposable _sub2;
 
+        private IDisposable _sub3;
+
+        private valueObserver<int> multipleFiveObs;
+
+
         public RxTestModel model { get; set; }
         
 
@@ -71,6 +76,28 @@ namespace RxTests
             }
         }
 
+        private int multipleOfThree;
+        public int MultipleOfThree
+        {
+            get => multipleOfThree;
+            set
+            {
+                multipleOfThree = value;
+                OnPropertyChanged("MultipleOfThree");
+            }
+        }
+
+        private int multipleOfFive;
+        public int MultipleOfFive
+        {
+            get => multipleOfFive;
+            set
+            {
+                multipleOfFive = value;
+                OnPropertyChanged("MultipleOfFive");
+            }
+        }
+
         private int throttledNum;
         public int ThrottledNum
         {
@@ -100,12 +127,26 @@ namespace RxTests
                 IsOddString = oddString;
             });
 
+            Action<int> timesFiveAction = new Action<int>((val) =>
+           {
+               MultipleOfFive = val * 5;
+           });
+
+            multipleFiveObs = new valueObserver<int>(0, timesFiveAction);
+
+            model.times5Obs.Subscribe(multipleFiveObs);
+
             _sub2 = model.numBSubject.Sample(TimeSpan.FromSeconds(3)).Subscribe((throt) =>
             {
                 ThrottledNum = throt;
             });
 
             factorTenCommand = new MVVMCommand(factorTenClick, (x) => true);
+
+            _sub3 = model.times3Obs.Subscribe(x =>
+           {
+               MultipleOfThree = Number * 3;
+           });
         }
 
         private async void factorTenClick(object parameters)
@@ -125,6 +166,7 @@ namespace RxTests
         {
             _sub.Dispose();
             _sub2.Dispose();
+            _sub3.Dispose();
         }
     }
 }

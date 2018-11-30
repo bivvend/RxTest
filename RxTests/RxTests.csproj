@@ -73,6 +73,7 @@
     <Compile Include="MVVMCommand.cs" />
     <Compile Include="RxTestModel.cs" />
     <Compile Include="RxTestsViewModel.cs" />
+    <Compile Include="valueObserver.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
