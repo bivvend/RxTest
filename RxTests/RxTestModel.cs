@@ -24,7 +24,12 @@ namespace RxTests
 
         public IObservable<EventPattern<ElapsedEventArgs>> times3Obs;
 
-        public IObservable<int> times5Obs;        
+        public IObservable<int> times5Obs;
+
+        public IObservable<int> times10Obs;
+        public IObservable<int> times6Obs;
+
+        public IObservable<int> mergeObs;
 
 
         private int _number;
@@ -67,6 +72,13 @@ namespace RxTests
             times3Obs = Observable.FromEventPattern<ElapsedEventHandler, ElapsedEventArgs>(h => counter.Elapsed += h, h => counter.Elapsed -= h);
 
             times5Obs = Observable.FromEventPattern<ElapsedEventHandler, ElapsedEventArgs>(h => counter.Elapsed += h, h => counter.Elapsed -= h).Select(h => number);
+
+            times10Obs = Observable.Interval(TimeSpan.FromSeconds(2)).Select(val => (int)(val * 10));
+
+            times6Obs = Observable.Interval(TimeSpan.FromSeconds(1)).Select(val => (int)(val * 6));
+
+            mergeObs = Observable.Merge<int>(times6Obs, times10Obs);
+         
 
         }
 

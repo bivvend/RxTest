@@ -27,6 +27,14 @@
                 <Label>Multiples of 5</Label>
                 <Label Content="{Binding MultipleOfFive}"></Label>
             </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Multiples of 10 with Interval</Label>
+                <Label Content="{Binding MultipleOfTen}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Multiples of 10 and 5</Label>
+                <Label Content="{Binding MultipleOfTenAndSix}"></Label>
+            </StackPanel>
             
 
 

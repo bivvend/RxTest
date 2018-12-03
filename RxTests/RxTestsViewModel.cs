@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,14 @@ namespace RxTests
 
         private IDisposable _sub3;
 
-        private valueObserver<int> multipleFiveObs;
+        private IDisposable _sub4;
+
+        private CompositeDisposable _conSub;
+
+        private IDisposable _mergeSub;
+
+        private valueObserver<int> multipleFiveObs;         
+       
 
 
         public RxTestModel model { get; set; }
@@ -98,6 +106,30 @@ namespace RxTests
             }
         }
 
+        private int multipleOfTen;
+        public int MultipleOfTen
+        {
+            get => multipleOfTen;
+            set
+            {
+                multipleOfTen = value;
+                OnPropertyChanged("MultipleOfTen");
+            }
+        }
+
+        private int multipleOfTenAndSix;
+        public int MultipleOfTenAndSix
+        {
+            get => multipleOfTenAndSix;
+            set
+            {
+                multipleOfTenAndSix = value;
+                OnPropertyChanged("MultipleOfTenAndSix");
+            }
+        }      
+
+
+
         private int throttledNum;
         public int ThrottledNum
         {
@@ -147,6 +179,19 @@ namespace RxTests
            {
                MultipleOfThree = Number * 3;
            });
+
+            _sub4 = model.times10Obs.Subscribe(x =>
+            {
+                MultipleOfTen = x;
+            });
+
+
+            _mergeSub = model.mergeObs.Subscribe(x =>
+            {
+                MultipleOfTenAndSix = x;
+            });
+
+            
         }
 
         private async void factorTenClick(object parameters)
@@ -167,6 +212,9 @@ namespace RxTests
             _sub.Dispose();
             _sub2.Dispose();
             _sub3.Dispose();
+            _sub4.Dispose();
+            _conSub.Dispose();
+            _mergeSub.Dispose();
         }
     }
 }
