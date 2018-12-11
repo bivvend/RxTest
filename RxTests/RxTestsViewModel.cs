@@ -168,7 +168,7 @@ namespace RxTests
 
             model.times5Obs.Subscribe(multipleFiveObs);
 
-            _sub2 = model.numBSubject.Sample(TimeSpan.FromSeconds(3)).Subscribe((throt) =>
+            _sub2 = model.numBSubject.Sample(TimeSpan.FromSeconds(3)).Subscribe((throt) =>    //Bad should not expose subject public
             {
                 ThrottledNum = throt;
             });

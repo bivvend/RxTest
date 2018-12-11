@@ -32,7 +32,7 @@
                 <Label Content="{Binding MultipleOfTen}"></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label>Multiples of 10 and 5</Label>
+                <Label>Multiples of 10 and 6</Label>
                 <Label Content="{Binding MultipleOfTenAndSix}"></Label>
             </StackPanel>
             
